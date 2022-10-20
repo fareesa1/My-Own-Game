@@ -1,5 +1,5 @@
 var obstaclesGroup, obstacle1, obstacle2
-//var coin, coinGroup
+var coin, coinGroup
 
 function setup() {
   createCanvas(800,400);
@@ -16,12 +16,12 @@ function setup() {
   ground.visible = false
 
   obstaclesGroup = new Group();
-  //coinGroup = new Group();
+  coinGroup = new Group();
 
   wall = createSprite(350,200,20,500)
 
   spawnObstacles();
-  //spawnCoins();
+  spawnCoins();
 }
 
 function preload(){
@@ -32,7 +32,7 @@ function preload(){
   obstacle1 = loadImage("png/obstacle1.png")
   obstacle2 = loadImage("png/obstacle2.png")  
 
-  //coin = loadImage("png/coin.png")
+  coinImg = loadImage("png/coin.png")
 }
 
 function draw() {
@@ -50,9 +50,9 @@ function draw() {
   }
 
     if(keyDown("space")&& plr.y>190){
-      plr.velocityY = -8
+      plr.velocityY = -10
       }
-      plr.velocityY+= 0.8
+      plr.velocityY+= 1
     
     if(keyWentDown(RIGHT_ARROW)){
       plr.changeAnimation("run")
@@ -73,6 +73,9 @@ function draw() {
       plr.changeAnimation("idle")
       plr.velocityX=0
     }
+
+    
+    text('Score: ', plr.x,plr.y)
 
   if(plr.y>100){
     camera.y=plr.y-100;
@@ -104,17 +107,17 @@ function spawnObstacles(){
   }
 }
 
-// function spawnCoins(){
-//   for(var i=0; i<4000; i+=400)  {
-//     var coin = createSprite(i, random(250,280), 10, 40);
-//     var rand = Math.round(random(1,1));
-//     switch(rand){
-//       case 1: coin.addImage(coin);
-//               break;
-//       default: break;
-//     }
-//     coin.scale = 5;
-//     coin.add(coin)
-//     coin.depth=plr.depth+1
-//   }
-// }
+function spawnCoins(){
+  for(var i=0; i<4000; i+=625)  {
+    var coin = createSprite(i, 110, 10, 40);
+    //var rand = Math.round(random(1,1));
+    //switch(rand){
+    //  case 1: coin.addImage(coinImg);
+    //          break;
+    //  default: break;
+    //}
+    coin.scale = 0.1;
+    coin.addImage(coinImg)
+    coin.depth=plr.depth+1
+  }
+}
